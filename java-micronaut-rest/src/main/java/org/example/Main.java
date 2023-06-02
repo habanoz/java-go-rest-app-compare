@@ -1,5 +1,6 @@
 package org.example;
 
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Body;
@@ -51,5 +52,6 @@ public class Main {
 }
 
 
+@Introspected
 record Album(String id, String title, String artist, float price) {
 }

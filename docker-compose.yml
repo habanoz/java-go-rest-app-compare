@@ -1,14 +1,23 @@
 version: '3'
 services:
-  micronaut-rest:
-    build: ./java-micronaut-rest
-    ports:
-      - "8081:8080"
-  spring-rest:
-    build: ./java-spring-rest
-    ports:
-      - "8082:8080"
   go-rest:
     build: ./go-rest
     ports:
+      - "8081:8080"
+  micronaut-rest:
+    build: ./java-micronaut-rest
+    ports:
+      - "8082:8080"
+  spring-rest:
+    build: ./java-spring-rest
+    ports:
       - "8083:8080"
+
+  micronaut-rest-native:
+    image: java-micronaut-rest:latest
+    ports:
+      - "8084:8080"
+  spring-rest-native:
+    image: docker.io/library/java-spring-rest:0.0.1-SNAPSHOT
+    ports:
+      - "8085:8080"

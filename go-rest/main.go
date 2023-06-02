@@ -3,6 +3,7 @@ package main
 import (
     "net/http"
     "github.com/gin-gonic/gin"
+    "sync"
 )
 
 // album represents data about a record album.
@@ -12,6 +13,9 @@ type album struct {
     Artist string  `json:"artist"`
     Price  float64 `json:"price"`
 }
+
+var lock = sync.RWMutex{}
+
 
 // albums slice to seed record album data.
 var albums = map[string]album{
@@ -32,6 +36,8 @@ func main() {
 
 // getAlbums responds with the list of all albums as JSON.
 func getAlbums(c *gin.Context) {
+    lock.RLock()
+    defer lock.RUnlock()
 
 	values := make([]album, 0, len(albums))
 	for _, v := range albums {
@@ -50,6 +56,9 @@ func postAlbums(c *gin.Context) {
     if err := c.BindJSON(&newAlbum); err != nil {
         return
     }
+    
+    lock.Lock()
+    defer lock.Unlock()
 
     // Add the new album to the slice.
     albums[newAlbum.ID] = newAlbum
@@ -59,6 +68,9 @@ func postAlbums(c *gin.Context) {
 // getAlbumByID locates the album whose ID value matches the id
 // parameter sent by the client, then returns that album as a response.
 func getAlbumByID(c *gin.Context) {
+    lock.RLock()
+    defer lock.RUnlock()
+
     id := c.Param("id")
 
 	v, ok := albums[id]
