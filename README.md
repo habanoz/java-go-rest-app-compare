@@ -7,6 +7,8 @@
 4. java micronaout native
 5. java spring native
 
+Check out my  [blog post](https://habanoz.github.io/tech-feed/analysis/java-and-go-rest-application-comparison/) about this work.
+
 ### Container Stats
 
 | App              | Image Size(MB) | Startup Times(ms) | Initial Memory Consumption(MB) |
